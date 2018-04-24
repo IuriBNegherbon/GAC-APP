@@ -9,6 +9,7 @@ import {
 	StyleSheet
 } from 'react-native';
 import firebase from 'firebase';
+import { Actions } from 'react-native-router-flux';
 
 //funcionarios.child("001").child("nome").set();
 
@@ -59,7 +60,7 @@ export default class Home extends Component {
 			return(
 				<View style={styles.listView}>
 					<TouchableOpacity onPress={() => {
-						this.pressRow(item);
+						Actions.schedules();
 					}}>
 						<View style={styles.listView}>
 							<Text style={styles.listViewText}>{item.horario}</Text>
@@ -85,9 +86,7 @@ export default class Home extends Component {
 					dataSource={this.state.itemDataSource}
 					renderRow={this.renderRow}
 				/>
-				<TouchableOpacity onPress={() => {
-					alert('ok');
-					}}
+				<TouchableOpacity onPress={() => {Actions.schedules();}}
 					style={styles.listViewAdd}
 				>
 					<Text style={styles.listViewAddText}>+</Text>
