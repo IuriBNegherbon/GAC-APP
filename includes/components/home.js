@@ -9,7 +9,6 @@ import {
 	StyleSheet
 } from 'react-native';
 import firebase from 'firebase';
-import Topbar from './topbar';
 
 //funcionarios.child("001").child("nome").set();
 
@@ -81,7 +80,6 @@ export default class Home extends Component {
 		return (
 			<View style={styles.container}>
 				<StatusBar backgroundColor='#3c4858'/>
-				<Topbar/>
 				<Text style={styles.listViewTitle}>Hoje</Text>
 				<ListView 
 					dataSource={this.state.itemDataSource}

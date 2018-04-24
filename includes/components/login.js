@@ -9,6 +9,7 @@ import {
 	TouchableHighlight,
 	StyleSheet
 } from 'react-native';
+import {Actions} from 'react-native-router-flux';
 
 import firebase from 'firebase';
 import Register from './register';
@@ -42,7 +43,7 @@ export default class Login extends Component {
 				<TextInput style={styles.inputs} placeholder='Email'></TextInput>
 				<TextInput style={styles.inputs} placeholder='Senha'></TextInput>
 				<TouchableOpacity 
-					onPress={() => {this.props.navigator.push({id: 'b'})}}
+					onPress={() => {Actions.home();}}
 					style={styles.buttons}
 				>
 					<Text style={styles.buttonText}>ENTRAR</Text>
