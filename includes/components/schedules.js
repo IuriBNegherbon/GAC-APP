@@ -78,11 +78,11 @@ const styles = StyleSheet.create({
     buttonCancel: {
         color: '#F95F62',
         marginRight: 10,
-        fontSize: 20
+        fontSize: 18
     },
 
     buttonOk: {
         color: '#1194F6',
-        fontSize: 20
+        fontSize: 18
     }
 });
