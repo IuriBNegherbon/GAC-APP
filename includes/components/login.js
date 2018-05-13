@@ -7,20 +7,48 @@ import {
 	TextInput,
 	TouchableOpacity,
 	TouchableHighlight,
-	StyleSheet
+	StyleSheet,
+	ActivityIndicator
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
+import {connect} from 'react-redux';
+
+import {
+	modifyEmail,
+	modifyPassword,
+	authUser
+} from '../actions/AutenticacaoActions';
 
 import firebase from 'firebase';
-import Register from './register';
+//import Register from './register';
 import Home from './home';
 
-export default class Login extends Component {
+class Login extends Component {
 	constructor() {
 		super();
 		this.state = {
 			modalVisible: false
 		}
+	}
+
+	_authUser() {
+		const {email, password} = this.props;
+		this.props.authUser({email, password});
+	}
+
+	renderButtonAccess() {
+		if(this.props.loadingLogin) {
+			return (
+				<ActivityIndicator size='large'/>
+			)
+		}
+		return (
+			<Button
+				title='Acessar'
+				color='#115e54'
+				onPress={() => this._authUser()}
+			/>
+		);
 	}
 
 	login() {
@@ -40,54 +68,35 @@ export default class Login extends Component {
 		return (
 			<View style={styles.container}>
 				<Text style={styles.title}>GAC</Text>
-				<TextInput style={styles.inputs} placeholder='Email'></TextInput>
-				<TextInput style={styles.inputs} placeholder='Senha'></TextInput>
-				<TouchableOpacity 
-					onPress={() => {Actions.home();}}
-					style={styles.buttons}
-				>
-					<Text style={styles.buttonText}>ENTRAR</Text>
-				</TouchableOpacity>
-				<Modal
-					animationType="slide"
-					transparent={false}
-					visible={this.state.modalVisible}
-					onRequestClose={() => {
-					alert('Modal has been closed.');
-					}}>
-					<View style={{marginTop: 22}}>
-						<Register title="Bem vindo ao GAC"/>
-					</View>
-					<TouchableHighlight
-						onPress={() => {
-						this.setModalVisible(!this.state.modalVisible);
-						}}
-						style={styles.buttonCancel}
-					>
-						<Text style={styles.buttonText}>CANCELAR</Text>
-					</TouchableHighlight>
-				</Modal>
-				<Text style={styles.text}>OU</Text>
-				<TouchableOpacity 
-					onPress={() => {
-					this.setModalVisible(true);
-					}}
-					style={styles.buttons}
-				>
-					<Text style={styles.buttonText}>CADASTRAR-SE</Text>
-				</TouchableOpacity>
-				<TouchableOpacity 
-					onPress={() => {
-					this.setModalVisible(true);
-					}}
-					style={styles.buttons}
-				>
-					<Text style={styles.buttonText}>ENTRAR COM O GOOGLE</Text>
-				</TouchableOpacity>
+				<TextInput
+					style={styles.inputs}
+					placeholder='Email'
+					onChangeText={input => this.props.modifyEmail(input)}
+				/>
+				<TextInput
+					style={styles.inputs}
+					placeholder='Senha'
+					onChangeText={input => this.props.modifyPassword(input)}
+				/>
+				<Text style={styles.error}>{this.props.loginError}</Text>
+				{this.renderButtonAccess()}
 			</View>
-		)
+		);
 	}
 }
+
+const mapStateToProps = state => ({
+	email: state.AutenticacaoReducer.email,
+	password: state.AutenticacaoReducer.password,
+	loginError: state.AutenticacaoReducer.loginError,
+	loadingLogin: state.AutenticacaoReducer.loadingLogin
+})
+
+export default connect(mapStateToProps, {
+	modifyEmail,
+	modifyPassword,
+	authUser
+})(Login);
 
 const styles = StyleSheet.create({
 	container: {
@@ -106,6 +115,13 @@ const styles = StyleSheet.create({
 	text: {
 		textAlign: 'center',
 		fontSize: 18
+	},
+
+	error: {
+		fontSize: 15,
+		color: '#000',
+		textAlign: 'center',
+		marginTop: 25
 	},
 
 	inputs: {

@@ -1,89 +1,128 @@
 import React, { Component } from 'react';
 import {
-	Text,
 	View,
-	Button,
-	ListView,
+	Text,
 	TextInput,
-	TouchableOpacity,
-	StyleSheet
+	Button,
+	StyleSheet,
+	ActivityIndicator
 } from 'react-native';
-import firebase from 'firebase';
+import {connect} from 'react-redux';
+import {
+	modifyEmail,
+	modifyPassword,
+	modifyName,
+	registerUser
+} from '../actions/AutenticacaoActions';
 
-export default class Login extends Component {
-		constructor() {
-			super();
-			this.state = {
-				modalVisible: false
-			}
+class Register extends Component {
+	_registerUser() {
+		const {name, email, password} = this.props;
+		this.props.cadastrarUsuario({name, email, password});
+	}
+
+	renderButtonRegsiter() {
+		if(this.props.loadingRegister) {
+			return (
+				<ActivityIndicator size='large'/>
+			)
 		}
 
-		login() {
-			alert('ok');
-		}
+		return (
+			<Button
+				title='Acessar'
+				color='#115e54'
+				onPress={() => this._registerUser()}
+			/>
+		);
+	}
 
-		cadastrar() {
-			alert('ok');
-		}
-
-		setModalVisible(visible) {
-			this.setState({modalVisible: true});
-		}
-
-		render() {
-				return (
-						<View style={styles.container}>
-							<Text style={styles.title}>{this.props.title}</Text>
-							<TextInput style={styles.inputs} placeholder='Nome'></TextInput>
-							<TextInput style={styles.inputs} placeholder='Email'></TextInput>
-							<TextInput style={styles.inputs} placeholder='Senha'></TextInput>
-							<TextInput style={styles.inputs} placeholder='Serial Number do GAC'></TextInput>
-							<TouchableOpacity 
-									onPress={() => { this.cadastrar(); }}
-									accessibilityLabel='Cadastrar'
-									style={styles.buttons}
-							>
-								<Text style={styles.buttonText}>CADASTRAR</Text>
-							</TouchableOpacity>
-						</View>
-				)
-		}
+	render() {
+		return (
+			<View style={styles.container}>
+				<View style={styles.containerInput}>
+					<TextInput
+						value={this.props.nome}
+						style={styles.form}
+						placeholder='Nome'
+						placeholderTextColor='#fff'
+						onChangeText={input => this.props.modifyName(input)}
+					/>
+					<TextInput
+						value={this.props.email}
+						style={styles.form}
+						placeholder='E-mail'
+						keyboardType='email-address'
+						placeholderTextColor='#fff'
+						onChangeText={input => this.props.modifyEmail(input)}
+					/>
+					<TextInput
+						value={this.props.senha}
+						style={styles.form}
+						placeholder='Senha'
+						secureTextEntry
+						placeholderTextColor='#fff'
+						onChangeText={input => this.props.modifyPassword(input)}
+					/>
+					<Text style={styles.error}>{this.props.erroCadastro}</Text>
+				</View>
+				<View style={styles.containerButton}>
+					{this.renderButtonRegsiter()}
+				</View>
+			</View>
+		);
+	}
 }
 
+const mapStateToProps = state => (
+	{
+		name: state.AutenticacaoReducer.name,
+		email: state.AutenticacaoReducer.email,
+		password: state.AutenticacaoReducer.password,
+		errorRegister: state.AutenticacaoReducer.errorRegister,
+		loadingRegister: state.AutenticacaoReducer.loadingRegister
+	}
+);
+
+export default connect(
+	mapStateToProps,
+	{
+		modifyName,
+		modifyEmail,
+		modifyPassword,
+		registerUser
+	}
+)(Register);
+
 const styles = StyleSheet.create({
+	bg: {
+		flex: 1
+	},
+
 	container: {
-		padding: 30
+		flex: 1,
+		padding: 15
 	},
 
-	title: {
-		marginTop: 30,
-		textAlign: 'center',
-		fontSize: 30,
-		color: '#000'
+	containerInput: {
+		flex: 4,
+		justifyContent: 'center'
 	},
 
-	text: {
-		textAlign: 'center',
-		fontSize: 18
+	form: {
+		fontSize: 15,
+		height: 45,
+		color: '#fff'
 	},
 
-	inputs: {
-		marginBottom: 10
-	},
-
-	buttons: {
-		height: 40,
-		marginTop: 50,
-		marginBottom: 20,
-		backgroundColor: '#1194F6',
-		justifyContent: 'center',
-		alignItems: 'center',
-		borderRadius: 50
-	},
-
-	buttonText: {
+	error: {
+		fontSize: 15,
 		color: '#fff',
-		fontSize: 16,
-		fontWeight: 'bold'
+		textAlign: 'center',
+		marginTop: 25
+	},
+
+	containerButton: {
+		flex: 1
 	}
 });

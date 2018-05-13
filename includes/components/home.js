@@ -82,7 +82,7 @@ export default class Home extends Component {
 			<View style={styles.container}>
 				<StatusBar backgroundColor='#3c4858'/>
 				<Text style={styles.listViewTitle}>Hoje</Text>
-				<ListView 
+				<ListView
 					dataSource={this.state.itemDataSource}
 					renderRow={this.renderRow}
 				/>
@@ -99,7 +99,8 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
 	container: {
 		backgroundColor: '#fff',
-		flex: 1
+		flex: 1,
+		marginTop: 50
 	},
 
 	listViewTitle: {
@@ -111,7 +112,8 @@ const styles = StyleSheet.create({
 	listView: {
 		height: 90,
 		flexDirection: 'row',
-		alignItems: 'center'
+		alignItems: 'center',
+		flex: 1
 	},
 
 	listViewText: {
@@ -121,14 +123,14 @@ const styles = StyleSheet.create({
 	},
 
 	listViewCancel: {
-		marginLeft: 70,
+		marginLeft: 20,
 		fontSize: 18
 	},
 
 	listViewAdd: {
 		backgroundColor: '#3c4858',
-		padding: 20,
-		marginLeft: 330,
+		padding: 18,
+		marginLeft: 280,
 		width: 75,
 		borderRadius: 50,
 		justifyContent: 'center',
