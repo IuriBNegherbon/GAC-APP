@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import {Actions} from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 import b64 from 'base-64';
 import {
   MODIFY_EMAIL,
@@ -43,7 +43,8 @@ export const registerUser = ({name, email, password}) => {
         firebase.database().ref(`/contacts/${emailB64}`).push({name}).then(value => {
           registerUserSuccess(dispatch)
         });
-      }).cath(error => registerUserError(error, dispatch));
+      })
+      .catch(error => registerUserError(error, dispatch));
   }
 }
 

@@ -60,7 +60,7 @@ export default (state = INITIAL_STATE, action) => {
     case LOGIN_ERROR:
       return {
         ...state,
-        errorLogin: action.paylaod,
+        errorLogin: action.payload,
         loadingLogin: false
       }
     case LOGIN_IN_PROGRESS:
