@@ -15,7 +15,7 @@ const Routes = () => (
     <Router>
         <Stack key='root'>
           <Scene key='login' component={Login} hideNavBar initial/>
-          <Scene key='register' component={Register} hideNavBar/>
+          <Scene key='register' component={Register} title='GAC'/>
             <Drawer key='drawer' contentComponent={drawer} hideNavBar>
                 <Scene key='home' component={Home} title='GAC' navTransparent/>
                 <Scene key='schedules' component={Schedules} title='GAC' navTransparent/>

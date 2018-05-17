@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
-  Button,
   TextInput,
   StyleSheet,
   ActivityIndicator,
@@ -61,10 +60,12 @@ class Login extends Component {
         <Text style={styles.error}>{this.props.errorLogin}</Text>
         {this.renderButtonAccess()}
         <TouchableOpacity
+          title='cadastre-se'
           style={styles.buttons}
           onPress={() => Actions.register()}
+          accessibilityLabel='clique para se cadastrar'
         >
-          <Text style={styles.buttonText}>CADASTRE-SE</Text>
+          <Text style={styles.buttonText}>ACESSAR</Text>
         </TouchableOpacity>
       </View>
     );

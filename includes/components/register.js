@@ -3,7 +3,7 @@ import {
   View,
   Text,
   TextInput,
-  Button,
+  TouchableOpacity,
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
@@ -18,21 +18,24 @@ import {
 class Register extends Component {
   _registerUser() {
     const { name, email, password } = this.props;
-    this.props.registerUser({name, email, password});
+    this.props.registerUser({ name, email, password });
   }
 
   renderButtonRegsiter() {
-    if(this.props.loadingRegister) {
+    if (this.props.loadingRegister) {
       return (
         <ActivityIndicator size='large'/>
-      )
+      );
     }
 
     return (
-      <Button
+      <TouchableOpacity
         title='registrar'
+        style={styles.buttons}
         onPress={() => this._registerUser()}
-      />
+      >
+        <Text style={styles.buttonText}>REGISTRAR</Text>
+      </TouchableOpacity>
     );
   }
 
@@ -70,55 +73,63 @@ class Register extends Component {
   }
 }
 
-const mapStateToProps = state => (
-  {
-    name: state.AutenticacaoReducer.name,
-    email: state.AutenticacaoReducer.email,
-    password: state.AutenticacaoReducer.password,
-    errorRegister: state.AutenticacaoReducer.errorRegister,
-    loadingRegister: state.AutenticacaoReducer.loadingRegister,
-  }
+const mapStateToProps = state => ({
+  name: state.AutenticacaoReducer.name,
+  email: state.AutenticacaoReducer.email,
+  password: state.AutenticacaoReducer.password,
+  errorRegister: state.AutenticacaoReducer.errorRegister,
+  loadingRegister: state.AutenticacaoReducer.loadingRegister,
+}
 );
 
-export default connect(
-  mapStateToProps,
-  {
-    modifyName,
-    modifyEmail,
-    modifyPassword,
-    registerUser,
-  }
-)(Register);
+export default connect (mapStateToProps, {
+  modifyName,
+  modifyEmail,
+  modifyPassword,
+  registerUser,
+})(Register);
 
 const styles = StyleSheet.create({
   bg: {
-    flex: 1
+    flex: 1,
   },
 
   container: {
     flex: 1,
-    padding: 15
+    padding: 15,
   },
 
   containerInput: {
     flex: 4,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 
   form: {
     fontSize: 15,
     height: 45,
-    color: '#000'
+    color: '#000',
   },
 
   error: {
     fontSize: 15,
     color: '#000',
     textAlign: 'center',
-    marginTop: 25
+    marginTop: 25,
   },
 
-  containerButton: {
-    flex: 1
-  }
+  buttons: {
+    height: 40,
+    marginTop: 50,
+    marginBottom: 20,
+    backgroundColor: '#1194F6',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+  },
+
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
 });
