@@ -24,26 +24,9 @@ class Home extends Component {
 
   getData(data) {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-    this.dataSource = ds.cloneWithRows(data);
+    this.font = ds.cloneWithRows(data);
   }
 
-  render() {
-    return (
-      <View>
-        <ListView
-          enableEmptySections
-          dataSource={this.dataSource}
-          renderRow={data => (
-            <View>
-              <Text>{data}</Text>
-            </View>
-          )}
-        />
-      </View>
-    );
-  }
-
-/*
   render() {
     return (
       <View style={styles.container}>
@@ -51,11 +34,10 @@ class Home extends Component {
         <Text style={styles.listViewTitle}>Hoje</Text>
         <ListView
           enableEmptySections
-          dataSource={this.dataSource}
+          dataSource={this.font}
           renderRow={data => (
             <View>
-              <Text>{data.hours}</Text>
-              <Text>{data.quantity}</Text>
+              <Text style={styles.listViewText}>{data}</Text>
             </View>
           )}
         />
@@ -66,15 +48,22 @@ class Home extends Component {
         </TouchableOpacity>
       </View>
     )
-  }*/
+  }
 }
 
 const mapStateToProps = state => {
   const data = _.map(state.ListDataReducer, (val, uid) => {
-    return { ...val, uid };
-  });
-  return { data };
+    return {...val, uid}
+  })
+  console.log(data);
+  return { data }
 };
+
+/*const mapStateToProps = state => {
+  const data = new Map(Object.entries(state.ListDataReducer))
+  console.log(data)
+  return {data};
+}*/
 
 export default connect(mapStateToProps, {
   dataFetch,

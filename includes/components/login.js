@@ -65,7 +65,7 @@ class Login extends Component {
           onPress={() => Actions.register()}
           accessibilityLabel='clique para se cadastrar'
         >
-          <Text style={styles.buttonText}>ACESSAR</Text>
+          <Text style={styles.buttonText}>CADASTRAR</Text>
         </TouchableOpacity>
       </View>
     );

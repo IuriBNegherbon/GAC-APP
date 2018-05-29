@@ -7,6 +7,7 @@ import {
   REGISTER_DATA_SUCCESS,
   REGISTER_DATA_ERROR,
   REGISTER_IN_PROGRESS,
+  LIST_DATA,
 } from './types';
 
 export const modifyHours = (input) => {

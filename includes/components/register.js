@@ -30,7 +30,6 @@ class Register extends Component {
 
     return (
       <TouchableOpacity
-        title='registrar'
         style={styles.buttons}
         onPress={() => this._registerUser()}
       >

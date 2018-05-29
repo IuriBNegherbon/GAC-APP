@@ -7,8 +7,8 @@ import {
 } from '../actions/types';
 
 const INITIAL_STATE = {
-  hours: '15:30',
-  quantity: '100',
+  hours: '',
+  quantity: '',
   errorRegisterData: '',
 };
 
