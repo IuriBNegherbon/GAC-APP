@@ -1,6 +1,7 @@
 export const MODIFY_EMAIL = 'modify_email';
 export const MODIFY_PASSWORD = 'modify_password';
 export const MODIFY_NAME = 'modify_name';
+export const MODIFY_NUMBER = 'modify_number';
 export const REGISTER_USER_SUCCESS = 'register_user_success';
 export const REGISTER_USER_ERROR = 'register_user_error';
 export const LOGIN_SUCCESS = 'login_success';

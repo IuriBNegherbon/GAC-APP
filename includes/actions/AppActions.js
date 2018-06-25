@@ -14,32 +14,32 @@ export const modifyHours = (input) => {
   return {
     type: MODIFY_HOURS,
     payload: input,
-  }
+  };
 };
 
 export const modifyQuantity = (input) => {
   return {
     type: MODIFY_QUANTITY,
     payload: input,
-  }
+  };
 };
 
-export const registerData = ({hours, quantity}) => {
-  return dispatch => {
+export const registerData = ({ hours, quantity }) => {
+  return (dispatch) => {
     dispatch({ type: REGISTER_IN_PROGRESS });
     const { currentUser } = firebase.auth();
     let emailUserB64 = b64.encode(currentUser.email);
     firebase.database()
       .ref(`/user_data/${emailUserB64}`)
-      .push({ hours, quantity})
+      .push({ hours, quantity })
       .then(() => registerDataSuccess(dispatch))
-      .catch(error => registerDataError(error.message, dispatch))
-  }
+      .catch(error => registerDataError(error.message, dispatch));
+  };
 };
 
 const registerDataSuccess = (dispatch) => {
   dispatch({
-    type: REGISTER_DATA_SUCCESS
+    type: REGISTER_DATA_SUCCESS,
   });
   Actions.home();
 };
@@ -53,15 +53,15 @@ const registerDataError = (error, dispatch) => {
 
 export const dataFetch = () => {
   const { currentUser } = firebase.auth();
+  const emailUserB64 = b64.encode(currentUser.email);
 
   return (dispatch) => {
-    let emailUserB64 = b64.encode(currentUser.email);
     firebase.database().ref(`/user_data/${emailUserB64}`)
-    .on('value', snapshot => {
-      dispatch({
-        type: LIST_DATA,
-        payload: snapshot.val(),
+      .on('value', (snapshot) => {
+        dispatch({
+          type: LIST_DATA,
+          payload: snapshot.val(),
+        });
       });
-    });
   };
 };

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import _ from 'lodash';
 import {
   Text,
   View,
@@ -7,8 +9,6 @@ import {
   StatusBar,
   StyleSheet,
 } from 'react-native';
-import { connect } from 'react-redux';
-import _ from 'lodash';
 import { Actions } from 'react-native-router-flux';
 import { dataFetch } from '../actions/AppActions';
 
@@ -27,6 +27,17 @@ class Home extends Component {
     this.font = ds.cloneWithRows(data);
   }
 
+  renderRow(data) {
+    return (
+      <TouchableOpacity onPress={() => { Actions.schedules({ dataHours: data.hours, dataQuantity: data.quantity }) }}>
+        <View style={styles.listView}>
+          <Text style={styles.listViewText}>{data.hours}</Text>
+          <Text style={styles.listViewText}>{data.quantity}</Text>
+        </View>
+      </TouchableOpacity>
+    )
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -35,12 +46,9 @@ class Home extends Component {
         <ListView
           enableEmptySections
           dataSource={this.font}
-          renderRow={data => (
-            <View>
-              <Text style={styles.listViewText}>{data}</Text>
-            </View>
-          )}
+          renderRow={data => this.renderRow(data)}
         />
+
         <TouchableOpacity onPress={() => {Actions.schedules();}}
           style={styles.listViewAdd}
         >
@@ -51,23 +59,15 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const data = _.map(state.ListDataReducer, (val, uid) => {
-    return {...val, uid}
-  })
-  console.log(data);
-  return { data }
+    return { ...val, uid };
+  });
+  console.log(data)
+  return ({ data });
 };
 
-/*const mapStateToProps = state => {
-  const data = new Map(Object.entries(state.ListDataReducer))
-  console.log(data)
-  return {data};
-}*/
-
-export default connect(mapStateToProps, {
-  dataFetch,
-})(Home);
+export default connect(mapStateToProps, { dataFetch })(Home);
 
 const styles = StyleSheet.create({
   container: {

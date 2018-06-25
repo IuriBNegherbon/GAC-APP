@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import {
   modifyHours,
   modifyQuantity,
-  registerData
+  registerData,
 } from '../actions/AppActions';
 
 class Schedules extends Component {
@@ -23,12 +23,12 @@ class Schedules extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={{ flex: 1, backgroundColor: '#fff', justifyContent: 'center', alignItems: 'center' }}>
         <View style={styles.containerHours}>
           <TextInput
             value={this.props.hours}
-            style={{width: 130, fontSize: 45}}
-            placeholder='3:30'
+            style={{ width: 130, fontSize: 45 }}
+            placeholder={this.props.dataHours}
             placeholderTextColor='#fff'
             keyboardType='numeric'
             onChangeText={input => this.props.modifyHours(input)}
@@ -41,8 +41,8 @@ class Schedules extends Component {
         <View style={styles.containerHours}>
           <TextInput
             value={this.props.quantity}
-            style={{width: 90, fontSize: 45}}
-            placeholder='30'
+            style={{ width: 90, fontSize: 45 }}
+            placeholder={this.props.dataQuantity}
             placeholderTextColor='#fff'
             keyboardType='numeric'
             onChangeText={input => this.props.modifyQuantity(input)}
@@ -50,7 +50,7 @@ class Schedules extends Component {
           <Text style={styles.gramsText}>gramas</Text>
         </View>
         <View style={styles.containerButtons}>
-          <TouchableOpacity onPress={() => {Actions.pop();}}>
+          <TouchableOpacity onPress={() => { Actions.pop(); }}>
               <Text style={styles.buttonCancel}>CANCEL</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => this._registerData()}>
@@ -77,20 +77,11 @@ export default connect(mapStateToProps, {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 1, backgroundColor: '#fff', justifyContent: 'center', alignItems: 'center'
   },
 
   containerHours: {
-    width: 350,
-    height: 120,
-    backgroundColor: '#3c4858',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginBottom: 10,
+    width: 350, height: 120, backgroundColor: '#3c4858', justifyContent: 'center', alignItems: 'center', flexDirection: 'row', marginBottom: 10
   },
 
   HoursText: {
@@ -128,6 +119,6 @@ const styles = StyleSheet.create({
 
   buttonOk: {
     color: '#1194F6',
-    fontSize: 18.
+    fontSize: 18,
   },
 });

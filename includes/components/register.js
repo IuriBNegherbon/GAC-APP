@@ -12,13 +12,14 @@ import {
   modifyEmail,
   modifyPassword,
   modifyName,
+  modifyNumber,
   registerUser,
 } from '../actions/AutenticacaoActions';
 
 class Register extends Component {
   _registerUser() {
-    const { name, email, password } = this.props;
-    this.props.registerUser({ name, email, password });
+    const { name, email, password, number } = this.props;
+    this.props.registerUser({ name, email, password, number });
   }
 
   renderButtonRegsiter() {
@@ -62,6 +63,12 @@ class Register extends Component {
             secureTextEntry
             onChangeText={input => this.props.modifyPassword(input)}
           />
+          <TextInput
+            value={this.props.number}
+            style={styles.form}
+            placeholder='Serial Number'
+            onChangeText={input => this.props.modifyNumber(input)}
+          />
           <Text style={styles.error}>{this.props.errorRegister}</Text>
         </View>
         <View style={styles.containerButton}>
@@ -72,19 +79,22 @@ class Register extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  name: state.AutenticacaoReducer.name,
-  email: state.AutenticacaoReducer.email,
-  password: state.AutenticacaoReducer.password,
-  errorRegister: state.AutenticacaoReducer.errorRegister,
-  loadingRegister: state.AutenticacaoReducer.loadingRegister,
-}
+const mapStateToProps = state => (
+  {
+    name: state.AutenticacaoReducer.name,
+    email: state.AutenticacaoReducer.email,
+    password: state.AutenticacaoReducer.password,
+    number: state.AutenticacaoReducer.number,
+    errorRegister: state.AutenticacaoReducer.errorRegister,
+    loadingRegister: state.AutenticacaoReducer.loadingRegister,
+  }
 );
 
 export default connect (mapStateToProps, {
   modifyName,
   modifyEmail,
   modifyPassword,
+  modifyNumber,
   registerUser,
 })(Register);
 
