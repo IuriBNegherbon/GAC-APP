@@ -29,10 +29,16 @@ class Home extends Component {
 
   renderRow(data) {
     return (
-      <TouchableOpacity onPress={() => { Actions.schedules({ dataHours: data.hours, dataQuantity: data.quantity }) }}>
+      <TouchableOpacity onPress={() => { Actions.schedules({ dataHours: data.user_data_hora, dataMinutes: data.user_data_minuto, dataQuantity: data.user_data_racao }) }}>
         <View style={styles.listView}>
-          <Text style={styles.listViewText}>{data.hours}</Text>
-          <Text style={styles.listViewText}>{data.quantity}</Text>
+          <Text style={{ fontSize: 20, marginLeft: 25 }}>{data.user_data_hora}</Text>
+          <Text>:</Text>
+          <Text style={{ fontSize: 20, marginRight: 50 }}>{data.user_data_minuto}</Text>
+          <Text style={{ fontSize: 20 }}>Ração: </Text>
+          <Text style={{ fontSize: 20, marginRight: 50 }}>{data.user_data_racao}</Text>
+          <TouchableOpacity>
+            <Text style={{ marginLeft: 10, marginRight: 25, color: '#F95F62', fontSize: 18 }}>EXCLUIR</Text>
+          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     )
@@ -48,7 +54,6 @@ class Home extends Component {
           dataSource={this.font}
           renderRow={data => this.renderRow(data)}
         />
-
         <TouchableOpacity onPress={() => {Actions.schedules();}}
           style={styles.listViewAdd}
         >
@@ -63,7 +68,6 @@ const mapStateToProps = (state) => {
   const data = _.map(state.ListDataReducer, (val, uid) => {
     return { ...val, uid };
   });
-  console.log(data)
   return ({ data });
 };
 
@@ -87,12 +91,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
-  },
-
-  listViewText: {
-    fontSize: 20,
-    marginLeft: 25,
-    marginRight: 50,
   },
 
   listViewCancel: {

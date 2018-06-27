@@ -79,16 +79,14 @@ class Register extends Component {
   }
 }
 
-const mapStateToProps = state => (
-  {
-    name: state.AutenticacaoReducer.name,
-    email: state.AutenticacaoReducer.email,
-    password: state.AutenticacaoReducer.password,
-    number: state.AutenticacaoReducer.number,
-    errorRegister: state.AutenticacaoReducer.errorRegister,
-    loadingRegister: state.AutenticacaoReducer.loadingRegister,
-  }
-);
+const mapStateToProps = state => ({
+  name: state.AutenticacaoReducer.name,
+  email: state.AutenticacaoReducer.email,
+  password: state.AutenticacaoReducer.password,
+  number: state.AutenticacaoReducer.number,
+  errorRegister: state.AutenticacaoReducer.errorRegister,
+  loadingRegister: state.AutenticacaoReducer.loadingRegister,
+});
 
 export default connect (mapStateToProps, {
   modifyName,

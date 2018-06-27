@@ -47,8 +47,8 @@ export const registerUser = ({ name, email, password, number }) => {
     dispatch({ type: REGISTER_IN_PROGRESS });
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
-        let emailB64 = b64.encode(email);
-        firebase.database().ref(`/users/${emailB64}`).push({ name, number })
+        const emailB64 = b64.encode(email);
+        firebase.database().ref(`/users/${emailB64}/user_data/`).push({ name, number })
           .then((value) => {
             registerUserSuccess(dispatch);
           });

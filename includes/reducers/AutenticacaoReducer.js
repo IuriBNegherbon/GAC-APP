@@ -19,67 +19,67 @@ const INITIAL_STATE = {
   errorRegister: '',
   errorLogin: '',
   loadingLogin: false,
-  loadingRegister: false
-}
+  loadingRegister: false,
+};
 
 export default (state = INITIAL_STATE, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case MODIFY_EMAIL:
       return {
         ...state,
-        email: action.payload
-      }
+        email: action.payload,
+      };
     case MODIFY_PASSWORD:
       return {
         ...state,
-        password: action.payload
-      }
+        password: action.payload,
+      };
     case MODIFY_NAME:
       return {
         ...state,
-        name: action.payload
-      }
+        name: action.payload,
+      };
     case MODIFY_NUMBER:
       return {
         ...state,
         number: action.payload,
-      }
+      };
     case REGISTER_USER_SUCCESS:
       return {
         ...state,
         nome: '',
         senha: '',
-        loadingRegister: false
-      }
+        loadingRegister: false,
+      };
     case REGISTER_USER_ERROR:
       return {
         ...state,
         errorRegister: action.payload,
-        loadingRegister: false
-      }
+        loadingRegister: false,
+      };
     case LOGIN_SUCCESS:
       return {
         ...state,
         errorLogin: '',
-        loadingRegister: false
-      }
+        loadingRegister: false,
+      };
     case LOGIN_ERROR:
       return {
         ...state,
         errorLogin: action.payload,
-        loadingLogin: false
-      }
+        loadingLogin: false,
+      };
     case LOGIN_IN_PROGRESS:
       return {
         ...state,
-        loadingLogin: true
-      }
+        loadingLogin: true,
+      };
     case REGISTER_IN_PROGRESS:
       return {
         ...state,
-        loadingRegister: true
-      }
+        loadingRegister: true,
+      };
     default:
       return state;
   }
-}
+};
